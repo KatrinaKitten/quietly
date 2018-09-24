@@ -1,0 +1,21 @@
+Quietly aims to make dealing with IO redirection easy. It originally started as a simple function to silence output to stdout within a certain block, cleaning up and abstracting away the process of dealing with the IO pointers. Eventually, it expanded into a simple but effective tool for dealing with any instance where you need to redirect, split, or silence output.
+
+Quietly doesn't namespace it's functions. This increases the risk of conflict, but makes it much cleaner to use. All of Quietly's functions will automatically be added to the global namespace as soon as you require the gem.
+
+You can silence stdout output with
+
+    quietly do ... end
+
+You can silence both stdout and stderr with
+
+    silently do ... end
+
+You can split output between multiple IO streams with
+
+    converse io1, io2, io3, ... do ... end
+
+You can redirect all output to a specific IO stream with
+
+    whisper io do ... end
+
+Quietly also defines a simple +Quietly::JointIO+ class that can take an arbitrary number of IOs and write to them all whenever it is written to. It's likely not the most robust or reliable implementation, but it does it's job. You shouldn't generally need to use it manually - it's mainly used by the +converse+ function - but it's available for manual use as well.
